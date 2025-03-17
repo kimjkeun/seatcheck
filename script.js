@@ -2,12 +2,9 @@
 const CONFIG = {
     rows: 7,
     cols: 5,
-    googleApiKey: 'AIzaSyCr3FG_bQ0D5Dy-uvkDk2PjO2a4m3pjDZE', // Add your Google API key here
-    spreadsheetId: '1JwXPxqGYBbkpegYSF6-y53rkIHsEkZrshnX1egh6v4s', // Original spreadsheet ID
+    // API 키와 클라이언트 ID는 config.js에서 로드됨
     sheetName: 'Sheet1', // 영문 시트 이름으로 변경 (기본값은 Sheet1)
-    sheetId: 0, // 시트 ID (첫 번째 시트는 보통 0)
-    clientId: '531510399586-vu2pjqb4i2k9nr050ejm43kmunv0u486.apps.googleusercontent.com', // OAuth 클라이언트 ID
-    scopes: 'https://www.googleapis.com/auth/spreadsheets'
+    sheetId: 0 // 시트 ID (첫 번째 시트는 보통 0)
 };
 
 // State
@@ -53,9 +50,27 @@ const elements = {
     applyDirectlyBtn: document.getElementById('applyDirectly')
 };
 
+// API 설정 로드
+function loadApiConfig() {
+    if (typeof API_CONFIG !== 'undefined') {
+        CONFIG.googleApiKey = API_CONFIG.googleApiKey;
+        CONFIG.clientId = API_CONFIG.clientId;
+        CONFIG.spreadsheetId = API_CONFIG.spreadsheetId;
+        console.log('API 설정이 로드되었습니다.');
+    } else {
+        console.error('API 설정을 찾을 수 없습니다. config.js 파일이 로드되었는지 확인하세요.');
+    }
+}
+
 // Initialize the application
 function init() {
     console.log('초기화 시작...');
+    
+    // API 설정 로드
+    loadApiConfig();
+    
+    // 기본 반 설정 확인
+    ensureDefaultClasses();
     
     // DOM 요소 로깅
     console.log('DOM 요소 확인:', {
@@ -96,6 +111,37 @@ function init() {
     createTemplateGrid();
     
     console.log('초기화 완료!');
+}
+
+// 기본 반 설정 추가 (최초 실행 시)
+function ensureDefaultClasses() {
+    console.log('기본 반 설정 확인 중...');
+    
+    // localStorage 상태 확인
+    console.log('localStorage 확인:', {
+        classList: localStorage.getItem('classList'),
+        currentClass: localStorage.getItem('currentClass'),
+        seatingArrangements: localStorage.getItem('seatingArrangements')
+    });
+    
+    // 반 목록 가져오기
+    const classList = JSON.parse(localStorage.getItem('classList') || '[]');
+    
+    // 반 목록이 비어있으면 기본 반 추가
+    if (classList.length === 0) {
+        console.log('반 목록이 비어있습니다. 기본 반을 추가합니다.');
+        
+        // 기본 반 추가
+        const defaultClasses = ['1학년 1반', '1학년 2반', '2학년 1반', '2학년 2반'];
+        localStorage.setItem('classList', JSON.stringify(defaultClasses));
+        
+        // state 업데이트
+        state.classes = defaultClasses;
+        
+        console.log('기본 반 설정이 추가되었습니다:', defaultClasses);
+    } else {
+        console.log('기존 반 목록이 있습니다:', classList);
+    }
 }
 
 // Create an empty seating chart
@@ -482,7 +528,7 @@ function authenticateAndSubmit() {
             console.error('인증 또는 초기화 실패:', error);
             
             if (error && error.error === 'popup_closed_by_user') {
-                alert('Google 로그인 창이 닫혔습니다. 팝업 차단을 해제하고 다시 시도해주세요.');
+                alert('Google 로그인 창이 닫혔습니다.');
             } else {
                 alert('Google 인증에 실패했습니다. 이미 로컬에 저장되었습니다.');
             }
