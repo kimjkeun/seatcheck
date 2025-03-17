@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이동 수업 출석 체크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>이동 수업 출석 체크</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="class-select">반 선택:</label>
+                <select id="class-select">
+                    <option value="1">1반</option>
+                    <option value="2">2반</option>
+                    <option value="3">3반</option>
+                    <option value="4">4반</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <button id="edit-mode-btn">자리 배치 편집</button>
+                <button id="save-btn">저장</button>
+                <button id="load-btn">불러오기</button>
+                <button id="download-template-btn">템플릿 다운로드</button>
+                <button id="upload-template-btn">템플릿 업로드</button>
+                <input type="file" id="template-upload" accept=".xlsx, .xls" style="display: none;">
+            </div>
+        </div>
+        
+        <div class="seating-container">
+            <div id="seating-chart" class="seating-chart"></div>
+            <div class="teacher-desk">교사 책상</div>
+        </div>
+        
+        <div class="attendance-panel">
+            <h2>출석 현황</h2>
+            <div id="attendance-status">
+                <p>전체 학생: <span id="total-count">0</span>명</p>
+                <p>출석: <span id="present-count">0</span>명</p>
+                <p>결석: <span id="absent-count">0</span>명</p>
+            </div>
+            <button id="submit-attendance-btn">출석 제출</button>
+        </div>
+        
+        <div id="student-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>학생 정보</h2>
+                <div class="form-group">
+                    <label for="student-name">이름:</label>
+                    <input type="text" id="student-name">
+                </div>
+                <div class="form-group">
+                    <label for="student-number">학번:</label>
+                    <input type="text" id="student-number">
+                </div>
+                <div class="form-group">
+                    <label>출석 상태:</label>
+                    <select id="attendance-status-select">
+                        <option value="present">출석</option>
+                        <option value="absent">결석</option>
+                    </select>
+                </div>
+                <button id="save-student-btn">저장</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
