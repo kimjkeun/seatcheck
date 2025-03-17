@@ -34,12 +34,61 @@ h1 {
     flex-wrap: wrap;
 }
 
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .control-group {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 5px 0;
     flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group > * {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.control-group > *:last-child {
+    margin-right: 0;
+}
+
+.template-selector {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.template-selector select {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.template-selector button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.template-selector button:hover {
+    background-color: #45a049;
 }
 
 select, button {
@@ -208,6 +257,50 @@ button:hover {
     background-color: #27ae60;
 }
 
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.primary-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #45a049;
+}
+
+/* 위험 버튼 스타일 */
+.danger-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.danger-btn:hover {
+    background-color: #c0392b;
+}
+
+/* 모달 내 선택 필드 스타일 */
+#class-select-template {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* 메인 화면 반 선택 필드 스타일 */
+#class-select {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
 /* Modal styles */
 .modal {
     display: none;
@@ -275,4 +368,66 @@ button:hover {
 
 #save-student-btn:hover {
     background-color: #2980b9;
+}
+
+/* 템플릿 모달 스타일 */
+#template-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.template-grid {
+    display: grid;
+    grid-gap: 10px;
+    margin: 20px 0;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.template-cell {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.template-cell input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#excelPaste {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: monospace;
+    resize: vertical;
+}
+
+#parseExcelData {
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
